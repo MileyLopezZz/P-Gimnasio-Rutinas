@@ -1,0 +1,45 @@
+# Entornos virtuales de Python.
+env/
+venv/
+.venv/
+ENV/
+
+# Archivos temporales y compilados de Python.
+__pycache__/
+*.py[cod]
+
+# Configuración privada y variables de entorno.
+config/local_settings.py
+.env
+.env.*
+!.env.example
+
+# Bases de datos locales de SQLite.
+*.sqlite3
+*.sqlite3-journal
+
+# Registros y respaldos locales.
+/backups/
+*.log
+
+# Archivos cargados por usuarios.
+/media/
+
+# Archivos recopilados por collectstatic.
+/staticfiles/
+
+# Configuración local de los editores.
+.vscode/
+.idea/
+
+# Archivos del sistema operativo.
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Cachés de herramientas.
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
