@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis solicitudes</title>
+</head>
+<body>
+    <h1>Mis solicitudes</h1>
+
+    {% if messages %}
+        {% for message in messages %}<p>{{ message }}</p>{% endfor %}
+    {% endif %}
+
+    <p><a href="{% url 'inicio_usuario' %}">Volver a mi inicio</a></p>
+
+    {% if solicitudes %}
+        {% for solicitud in solicitudes %}
+            <article>
+                <h2>
+                    <a href="{% url 'rutina_detalle' solicitud.rutina.pk %}">
+                        {{ solicitud.rutina.titulo }}
+                    </a>
+                </h2>
+                <p>Entrenador: {{ solicitud.rutina.entrenador.username }}</p>
+                <p>Estado: {{ solicitud.get_estado_display }}</p>
+                <p>Enviada: {{ solicitud.fecha_creacion|date:'d/m/Y H:i' }}</p>
+                <p>Comentario: {{ solicitud.comentario|default:'Sin comentario' }}</p>
+
+                {% if solicitud.estado == 'pendiente' %}
+                    <form method="post" action="{% url 'inscripcion_cancelar' solicitud.pk %}">
+                        {% csrf_token %}
+                        <button type="submit">Cancelar solicitud pendiente</button>
+                    </form>
+                {% endif %}
+            </article>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <p>Aún no has enviado solicitudes.</p>
+    {% endif %}
+</body>
+</html>

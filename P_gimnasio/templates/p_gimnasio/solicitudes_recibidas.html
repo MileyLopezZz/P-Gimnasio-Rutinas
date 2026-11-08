@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Solicitudes recibidas</title>
+</head>
+<body>
+    <h1>Solicitudes recibidas</h1>
+
+    {% if messages %}
+        {% for message in messages %}<p>{{ message }}</p>{% endfor %}
+    {% endif %}
+
+    <p><a href="{% url 'mis_registros' %}">Volver a Mis registros</a></p>
+
+    {% if solicitudes %}
+        {% for solicitud in solicitudes %}
+            <article>
+                <h2>{{ solicitud.rutina.titulo }}</h2>
+                <p>Socio: {{ solicitud.socio.username }}</p>
+                <p>Estado actual: {{ solicitud.get_estado_display }}</p>
+                <p>Recibida: {{ solicitud.fecha_creacion|date:'d/m/Y H:i' }}</p>
+                <p>Comentario: {{ solicitud.comentario|default:'Sin comentario' }}</p>
+
+                <form method="post" action="{% url 'inscripcion_actualizar_estado' solicitud.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" name="estado" value="confirmada">
+                        Confirmar
+                    </button>
+                    <button type="submit" name="estado" value="rechazada">
+                        Rechazar
+                    </button>
+                </form>
+            </article>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <p>No has recibido solicitudes todavía.</p>
+    {% endif %}
+</body>
+</html>
