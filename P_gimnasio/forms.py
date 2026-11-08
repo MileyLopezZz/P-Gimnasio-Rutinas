@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import Usuario
+from .models import Usuario,Disciplina, Equipamiento, Inscripcion, Rutina
 
 
 #formulario de registro 
@@ -111,7 +111,7 @@ class PerfilForm(forms.ModelForm):
 
         return email
 
-from .models import Disciplina, Equipamiento, Inscripcion, Rutina
+
 
 
 class RutinaForm(forms.ModelForm):
