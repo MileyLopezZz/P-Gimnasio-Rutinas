@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ rutina.titulo }}</title>
+</head>
+<body>
+    <h1>{{ rutina.titulo }}</h1>
+    <p>{{ rutina.descripcion }}</p>
+    <p>Entrenador: {{ rutina.entrenador.username }}</p>
+    <p>Duración: {{ rutina.duracion }} minutos</p>
+    <p>Cupos: {{ rutina.cupos }}</p>
+    <p>Nivel: {{ rutina.get_nivel_display }}</p>
+    <p>Disciplina: {{ rutina.disciplina|default:'Sin disciplina' }}</p>
+    <p>Equipamiento:
+        {% for equipamiento in rutina.equipamientos.all %}
+            {{ equipamiento.nombre }}{% if not forloop.last %}, {% endif %}
+        {% empty %}Sin equipamiento{% endfor %}
+    </p>
+    <a href="{% url 'mis_registros' %}">Volver</a>
+</body>
+</html>

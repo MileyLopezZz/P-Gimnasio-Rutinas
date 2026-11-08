@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmar eliminación</title>
+</head>
+<body>
+    <h1>Confirmar eliminación</h1>
+    <p>¿Seguro que deseas eliminar la rutina <strong>{{ rutina.titulo }}</strong>?</p>
+    <p>Esta acción también eliminará sus inscripciones.</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Sí, eliminar</button>
+        <a href="{% url 'mis_registros' %}">Cancelar</a>
+    </form>
+</body>
+</html>
