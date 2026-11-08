@@ -12,6 +12,7 @@
     {% endif %}
 
     <p><a href="{% url 'rutina_crear' %}">Crear nueva rutina</a></p>
+    <p><a href="{% url 'solicitudes_recibidas' %}">Ver solicitudes recibidas</a></p>
 
     {% if rutinas %}
         {% for rutina in rutinas %}
