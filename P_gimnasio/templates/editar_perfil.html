@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    Editar perfil | Gimnasio y rutinas
+{% endblock %}
+
+{% block contenido %}
+
+<div class="acceso-tarjeta">
+    <h2>Editar mis datos</h2>
+
+    <form method="post" action="{% url 'editar_perfil' %}" class="acceso-formulario">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit" class="boton boton-principal">
+            Guardar cambios
+        </button>
+    </form>
+
+    <p class="acceso-enlace">
+        <a href="{% url 'cuenta' %}">Cancelar y volver</a>
+    </p>
+</div>
+
+{% endblock %}
