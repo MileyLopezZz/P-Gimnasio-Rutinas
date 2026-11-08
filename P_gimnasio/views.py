@@ -1,10 +1,21 @@
 from django.shortcuts import render, get_object_or_404,redirect
-from .models import Rutina,Disciplina,Inscripcion
+from .models import Rutina,Disciplina,Inscripcion,Equipamiento
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib import messages
 from .forms import RegistroForm, PerfilForm
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied, ValidationError
+from django.db import IntegrityError, transaction
+from django.views.decorators.http import require_POST
+
+from .forms import (
+    DisciplinaForm,
+    EquipamientoForm,
+    InscripcionForm,
+    RutinaForm,
+)
+
 
 # Create your views here.
 
@@ -174,20 +185,7 @@ def editar_perfil(request):
         'editar_perfil.html',
         {'form': form},
     )
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.core.exceptions import PermissionDenied, ValidationError
-from django.db import IntegrityError, transaction
-from django.shortcuts import get_object_or_404, redirect, render
-from django.views.decorators.http import require_POST
 
-from .forms import (
-    DisciplinaForm,
-    EquipamientoForm,
-    InscripcionForm,
-    RutinaForm,
-)
-from .models import Disciplina, Equipamiento, Inscripcion, Rutina
 
 
 def _es_entrenador(usuario):
