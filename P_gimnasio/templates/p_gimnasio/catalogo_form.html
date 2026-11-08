@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ titulo_pagina }}</title>
+</head>
+<body>
+    <h1>{{ titulo_pagina }}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {% for field in form %}
+            <p>
+                {{ field.label_tag }}<br>
+                {{ field }}
+                {% for error in field.errors %}<br><strong>{{ error }}</strong>{% endfor %}
+            </p>
+        {% endfor %}
+        <button type="submit">{{ boton }}</button>
+    </form>
+
+    <p><a href="{% url volver_url %}">Volver</a></p>
+</body>
+</html>

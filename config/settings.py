@@ -78,7 +78,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'gimnasio_db',
         'USER': 'root',
-        'PASSWORD': '031805',
+        'PASSWORD': '123456',
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -128,3 +128,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Reemplaza el usuario predeterminado por nuestro modelo Usuario.
 AUTH_USER_MODEL = 'P_gimnasio.Usuario'
+
+# Las vistas protegidas usan el login estándar de Django.
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'inicio_usuario'
+LOGOUT_REDIRECT_URL = 'login'

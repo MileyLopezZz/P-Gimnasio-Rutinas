@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis registros</title>
+</head>
+<body>
+    <h1>Mis registros</h1>
+
+    {% if messages %}
+        {% for message in messages %}<p>{{ message }}</p>{% endfor %}
+    {% endif %}
+
+    <p><a href="{% url 'rutina_crear' %}">Crear nueva rutina</a></p>
+    <p><a href="{% url 'solicitudes_recibidas' %}">Ver solicitudes recibidas</a></p>
+
+    {% if rutinas %}
+        {% for rutina in rutinas %}
+            <article>
+                <h2><a href="{% url 'rutina_detalle' rutina.pk %}">{{ rutina.titulo }}</a></h2>
+                <p>{{ rutina.descripcion }}</p>
+                <p>Duración: {{ rutina.duracion }} minutos | Cupos: {{ rutina.cupos }}</p>
+                <p>Disciplina: {{ rutina.disciplina|default:'Sin disciplina' }}</p>
+                <p>Equipamiento:
+                    {% for equipamiento in rutina.equipamientos.all %}
+                        {{ equipamiento.nombre }}{% if not forloop.last %}, {% endif %}
+                    {% empty %}Sin equipamiento{% endfor %}
+                </p>
+                <a href="{% url 'rutina_editar' rutina.pk %}">Editar</a>
+                <a href="{% url 'rutina_eliminar' rutina.pk %}">Eliminar</a>
+            </article>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <p>Aún no tienes rutinas registradas.</p>
+    {% endif %}
+</body>
+</html>

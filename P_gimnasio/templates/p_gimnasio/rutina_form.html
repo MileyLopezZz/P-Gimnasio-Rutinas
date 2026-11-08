@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ titulo_pagina }}</title>
+</head>
+<body>
+    <h1>{{ titulo_pagina }}</h1>
+
+    {% if messages %}
+        {% for message in messages %}<p>{{ message }}</p>{% endfor %}
+    {% endif %}
+
+    <p>
+        <a href="{% url 'disciplina_crear' %}">Crear disciplina</a> |
+        <a href="{% url 'equipamiento_crear' %}">Crear equipamiento</a>
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {% for field in form %}
+            <p>
+                {{ field.label_tag }}<br>
+                {{ field }}
+                {% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}
+                {% for error in field.errors %}<br><strong>{{ error }}</strong>{% endfor %}
+            </p>
+        {% endfor %}
+        <button type="submit">{{ boton }}</button>
+    </form>
+
+    <p><a href="{% url 'mis_registros' %}">Volver a Mis registros</a></p>
+</body>
+</html>

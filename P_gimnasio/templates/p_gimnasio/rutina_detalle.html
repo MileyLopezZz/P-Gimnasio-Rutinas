@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ rutina.titulo }}</title>
+</head>
+<body>
+    <h1>{{ rutina.titulo }}</h1>
+
+    {% if messages %}
+        {% for message in messages %}<p>{{ message }}</p>{% endfor %}
+    {% endif %}
+
+    <p>{{ rutina.descripcion }}</p>
+    <p>Entrenador: {{ rutina.entrenador.username }}</p>
+    <p>Duración: {{ rutina.duracion }} minutos</p>
+    <p>Cupos: {{ rutina.cupos }}</p>
+    <p>Nivel: {{ rutina.get_nivel_display }}</p>
+    <p>Disciplina: {{ rutina.disciplina|default:'Sin disciplina' }}</p>
+    <p>Equipamiento:
+        {% for equipamiento in rutina.equipamientos.all %}
+            {{ equipamiento.nombre }}{% if not forloop.last %}, {% endif %}
+        {% empty %}Sin equipamiento{% endfor %}
+    </p>
+
+    {% if request.user.is_authenticated %}
+        {% if request.user.rol == 'socio' and rutina.entrenador_id != request.user.id %}
+            <h2>Solicitar inscripción</h2>
+            {% if ya_inscripto %}
+                <p>Ya tienes una solicitud para esta rutina.</p>
+                <p><a href="{% url 'mis_solicitudes' %}">Ver mis solicitudes</a></p>
+            {% else %}
+                <form method="post" action="{% url 'inscripcion_crear' rutina.pk %}">
+                    {% csrf_token %}
+                    {{ form_inscripcion.non_field_errors }}
+                    {% for field in form_inscripcion %}
+                        <p>
+                            {{ field.label_tag }}<br>
+                            {{ field }}
+                            {% for error in field.errors %}<br><strong>{{ error }}</strong>{% endfor %}
+                        </p>
+                    {% endfor %}
+                    <button type="submit">Enviar solicitud</button>
+                </form>
+            {% endif %}
+        {% elif request.user.rol == 'entrenador' and rutina.entrenador_id == request.user.id %}
+            <p><a href="{% url 'rutina_editar' rutina.pk %}">Editar mi rutina</a></p>
+        {% endif %}
+    {% else %}
+        <p>
+            <a href="{% url 'login' %}?next={{ request.path|urlencode }}">
+                Inicia sesión como socio para solicitar inscripción
+            </a>
+        </p>
+    {% endif %}
+
+    {% if request.user.is_authenticated and request.user.rol == 'entrenador' %}
+        <p><a href="{% url 'solicitudes_recibidas' %}">Ver solicitudes recibidas</a></p>
+        <p><a href="{% url 'mis_registros' %}">Volver a Mis registros</a></p>
+    {% elif request.user.is_authenticated and request.user.rol == 'socio' %}
+        <p><a href="{% url 'mis_solicitudes' %}">Ir a Mis solicitudes</a></p>
+    {% endif %}
+</body>
+</html>
