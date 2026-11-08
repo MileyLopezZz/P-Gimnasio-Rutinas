@@ -131,5 +131,4 @@ AUTH_USER_MODEL = 'P_gimnasio.Usuario'
 
 # Las vistas protegidas usan el login estándar de Django.
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'inicio_usuario'
-LOGOUT_REDIRECT_URL = 'login'
+LOGIN_REDIRECT_URL = 'inicio'
