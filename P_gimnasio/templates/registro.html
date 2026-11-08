@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Crear cuenta | Gimnasio y rutinas{% endblock %}
+
+{% block contenido %}
+
+<div class="acceso-tarjeta">
+    <h2>Crear una cuenta</h2>
+
+    <p class="acceso-descripcion">
+        Regístrate como socio para participar en las rutinas
+        del gimnasio.
+    </p>
+
+    <form method="post" action="{% url 'registro' %}" class="acceso-formulario">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit" class="boton boton-principal">
+            Crear cuenta
+        </button>
+    </form>
+
+    <p class="acceso-enlace">
+        <a href="{% url 'inicio' %}">Volver al inicio</a>
+    </p>
+</div>
+
+{% endblock %}

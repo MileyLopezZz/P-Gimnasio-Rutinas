@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Rutinas | Gimnasio y rutinas{% endblock %}
+
+{% block contenido %}
+
+<h2 class="titulo-listado">Explora nuestras rutinas</h2>
+
+<!-- Buscador y filtro por disciplina -->
+<form method="get"
+        action="{% url 'lista_rutinas' %}"
+        class="filtros-rutinas">
+
+    <div>
+        <label for="busqueda">Buscar por título o descripción:</label>
+
+        <input
+            type="search"
+            id="busqueda"
+            name="q"
+            value="{{ q }}"
+            placeholder="Ejemplo: yoga"
+        >
+    </div>
+
+    <div>
+        <label for="disciplina">Disciplina:</label>
+
+        <select id="disciplina" name="disciplina">
+            <option value="">Todas las disciplinas</option>
+
+            {% for disciplina in disciplinas %}
+                <option
+                    value="{{ disciplina.pk }}"
+                    {% if disciplina_id == disciplina.pk|stringformat:"s" %}
+                        selected
+                    {% endif %}
+                >
+                    {{ disciplina.nombre }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <button type="submit" class="boton boton-principal">
+        Buscar
+    </button>
+
+    <a href="{% url 'lista_rutinas' %}"
+        class="boton boton-secundario">
+        Limpiar filtros
+    </a>
+</form>
+
+<!-- Error si el filtro recibido no es válido -->
+{% if error_filtro %}
+    <p role="alert" class="mensaje error">{{ error_filtro }}</p>
+{% endif %}
+
+<p class="cantidad-resultados">
+    Rutinas encontradas: {{ page_obj.paginator.count }}
+</p>
+
+<!-- Tarjetas de rutinas  -->
+<section class="listado-rutinas" aria-label="Resultados de rutinas">
+
+    {% for rutina in page_obj %}
+        <article class="listado-tarjeta">
+            <h3>
+                <a href="{% url 'detalle_rutina' pk=rutina.pk %}">
+                    {{ rutina.titulo }}
+                </a>
+            </h3>
+
+            <p>{{ rutina.descripcion|truncatewords:25 }}</p>
+
+            <p>
+                <strong>Entrenador:</strong>
+                {{ rutina.entrenador.username }}
+            </p>
+
+            <p>
+                <strong>Disciplina:</strong>
+
+                {% if rutina.disciplina %}
+                    {{ rutina.disciplina.nombre }}
+                {% else %}
+                    Sin disciplina asignada
+                {% endif %}
+            </p>
+
+            <p>
+                <strong>Duración:</strong>
+                {{ rutina.duracion }} minutos
+            </p>
+
+            <p>
+                <strong>Nivel:</strong>
+                {{ rutina.get_nivel_display }}
+            </p>
+
+            <p><strong>Equipamientos:</strong></p>
+
+            <ul>
+                {% for equipo in rutina.equipamientos.all %}
+                    <li>{{ equipo.nombre }}</li>
+                {% empty %}
+                    <li>Sin equipamiento indicado</li>
+                {% endfor %}
+            </ul>
+        </article>
+
+    {% empty %}
+        <p>No se encontraron rutinas con esos criterios.</p>
+    {% endfor %}
+
+</section>
+
+<!-- Paginación que conserva la búsqueda y el filtro -->
+<nav class="paginacion" aria-label="Páginas de rutinas">
+
+    {% if page_obj.has_previous %}
+        <a href="?{% if querystring %}{{ querystring }}&amp;{% endif %}page={{ page_obj.previous_page_number }}">
+            Anterior
+        </a>
+    {% endif %}
+
+    <span>
+        Página {{ page_obj.number }}
+        de {{ page_obj.paginator.num_pages }}
+    </span>
+
+    {% if page_obj.has_next %}
+        <a href="?{% if querystring %}{{ querystring }}&amp;{% endif %}page={{ page_obj.next_page_number }}">
+            Siguiente
+        </a>
+    {% endif %}
+
+</nav>
+
+{% endblock %}

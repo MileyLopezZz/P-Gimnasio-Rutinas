@@ -1,0 +1,1267 @@
+/* ======================================
+   1. COLORES Y ESTILOS GENERALES
+   ====================================== */
+
+:root {
+    color-scheme: dark;
+
+    --fondo: #101010;
+    --superficie: #1b1b1b;
+    --borde: #363636;
+
+    --texto: #f5f5f5;
+    --texto-suave: #b8b8b8;
+
+    --naranja: #ff850a;
+    --naranja-hover: #ff9d3d;
+
+    --radio: 12px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+
+    background: var(--fondo);
+    color: var(--texto);
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+
+    overflow-wrap: break-word;
+}
+
+a {
+    color: var(--naranja);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+    outline: 3px solid var(--naranja);
+    outline-offset: 4px;
+}
+
+h1,
+h2,
+h3 {
+    line-height: 1.2;
+}
+
+.contenedor {
+    width: min(1200px, 92%);
+    margin-inline: auto;
+}
+
+/* ======================================
+   2. ENCABEZADO Y MENÚ
+   ====================================== */
+
+.encabezado {
+    background: #141414;
+    border-bottom: 1px solid var(--borde);
+}
+
+.navegacion {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    padding-block: 20px;
+}
+
+.marca {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+
+    color: var(--texto);
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.marca:hover {
+    text-decoration: none;
+}
+
+.marca-simbolo {
+    font-size: 23px;
+    font-style: italic;
+    font-weight: 900;
+}
+
+.marca-simbolo span {
+    color: var(--naranja);
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.menu-enlace {
+    position: relative;
+    padding-block: 10px;
+
+    color: var(--texto-suave);
+    font-weight: 700;
+    transition: color 0.2s ease;
+}
+
+.menu-enlace:hover,
+.menu-enlace.activo {
+    color: var(--naranja);
+    text-decoration: none;
+}
+
+.menu-enlace.activo::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    height: 3px;
+    border-radius: 3px;
+    background: var(--naranja);
+}
+
+.acciones-usuario {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.saludo {
+    max-width: 220px;
+    color: var(--texto-suave);
+    font-size: 14px;
+}
+
+.saludo strong {
+    color: var(--texto);
+}
+
+.formulario-salida {
+    margin: 0;
+}
+
+/* ======================================
+   3. BOTONES REUTILIZABLES
+   ====================================== */
+
+.boton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    min-height: 44px;
+    padding: 10px 20px;
+
+    border: 1px solid transparent;
+    border-radius: 8px;
+
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+    text-align: center;
+
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.boton:hover {
+    text-decoration: none;
+}
+
+.boton-principal {
+    background: var(--naranja);
+    color: #15100b;
+}
+
+.boton-principal:hover {
+    background: var(--naranja-hover);
+}
+
+.boton-secundario {
+    border-color: #737373;
+    background: transparent;
+    color: var(--texto);
+}
+
+.boton-secundario:hover {
+    border-color: var(--naranja);
+    background: #242424;
+}
+
+/* ======================================
+   4. CONTENIDO Y MENSAJES
+   ====================================== */
+
+.contenido-principal {
+    flex: 1;
+    min-width: 0;
+
+    width: min(1200px, 92%);
+    margin-inline: auto;
+    padding-block: 40px 64px;
+}
+
+.zona-mensajes {
+    margin-top: 24px;
+}
+
+.mensajes {
+    display: grid;
+    gap: 12px;
+
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.mensaje {
+    padding: 14px 18px;
+
+    border: 1px solid var(--borde);
+    border-left: 4px solid var(--naranja);
+    border-radius: 8px;
+
+    background: var(--superficie);
+    color: var(--texto);
+}
+
+.mensaje.success {
+    border-left-color: #63d69a;
+}
+
+.mensaje.error {
+    border-left-color: #ff8585;
+}
+
+.mensaje.warning {
+    border-left-color: #ffd166;
+}
+
+.mensaje.info {
+    border-left-color: #82baff;
+}
+
+/* ======================================
+5. PIE DE PÁGINA
+   ====================================== */
+
+.pie-pagina {
+    border-top: 1px solid var(--borde);
+    background: #141414;
+}
+
+.pie-contenido {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    padding-block: 24px;
+}
+
+.pie-contenido p {
+    margin: 0;
+    color: var(--texto-suave);
+    font-size: 14px;
+}
+
+.pie-contenido .pie-marca {
+    color: var(--texto);
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.pie-marca span {
+    color: var(--naranja);
+}
+
+/* ======================================
+6. TABLETS Y CELULARES
+   ====================================== */
+
+@media (max-width: 1000px) {
+    .menu {
+        order: 3;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .acciones-usuario {
+        flex: 1;
+    }
+}
+
+@media (max-width: 600px) {
+    .navegacion {
+        justify-content: center;
+        gap: 18px;
+    }
+
+    .marca {
+        justify-content: center;
+        width: 100%;
+        font-size: 18px;
+    }
+
+    .menu {
+        order: 0;
+    }
+
+    .acciones-usuario {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .saludo {
+        max-width: none;
+        width: 100%;
+        text-align: center;
+    }
+
+    .boton {
+        padding-inline: 16px;
+    }
+
+    .contenido-principal {
+        padding-block: 28px 44px;
+    }
+
+    .pie-contenido {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition: none !important;
+    }
+}
+
+
+/* ======================================
+   7. INICIO: BANNER PRINCIPAL
+   ====================================== */
+
+.inicio-banner {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+
+    min-height: 490px;
+    padding: 56px 48px 80px;
+
+    border: 1px solid var(--borde);
+    border-radius: 18px;
+
+    background-color: #171717;
+    background-image:
+        linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0.82) 0%,
+            rgba(0, 0, 0, 0.55) 45%,
+            rgba(0, 0, 0, 0.08) 100%
+        ),
+        url("../img/portada-gimnasio.png");
+
+    background-size: cover;
+    background-position: center;
+}
+
+.banner-contenido {
+    max-width: 600px;
+}
+
+.banner-etiqueta,
+.seccion-etiqueta {
+    margin: 0 0 16px;
+
+    color: var(--naranja);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.banner-contenido h1 {
+    margin: 0;
+
+    color: #ffffff;
+    font-size: clamp(36px, 4.5vw, 62px);
+    font-style: italic;
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    line-height: 1.08;
+}
+
+.banner-contenido h1::after {
+    content: "";
+    display: block;
+
+    width: 90px;
+    height: 5px;
+    margin-top: 24px;
+
+    border-radius: 8px;
+    background: var(--naranja);
+}
+
+.banner-descripcion {
+    max-width: 440px;
+    margin: 24px 0 28px;
+
+    color: #e0e0e0;
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+.banner-boton {
+    min-height: 48px;
+    padding-inline: 24px;
+    font-size: 16px;
+}
+
+.banner-boton span {
+    font-size: 24px;
+    line-height: 1;
+}
+
+/* ======================================
+8. INICIO: CONTADORES
+   ====================================== */
+
+.inicio-contadores {
+    position: relative;
+
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    margin: -32px 28px 0;
+    padding: 28px 16px;
+
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+
+    background: #1b1b1b;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.contador {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    padding: 0 16px;
+    text-align: center;
+}
+
+.contador + .contador {
+    border-left: 1px solid var(--borde);
+}
+
+.contador-numero {
+    color: var(--naranja);
+    font-size: 38px;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.contador-texto {
+    color: var(--texto-suave);
+    font-size: 14px;
+}
+
+/* ======================================
+9. INICIO: TARJETAS DE RUTINAS
+   ====================================== */
+
+.inicio-rutinas {
+    margin-top: 60px;
+}
+
+.seccion-encabezado {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    margin-bottom: 28px;
+}
+
+.seccion-encabezado h2 {
+    margin: 0;
+    font-size: clamp(24px, 3vw, 32px);
+    font-weight: 800;
+    letter-spacing: -0.7px;
+}
+
+.seccion-encabezado .seccion-etiqueta {
+    margin-bottom: 10px;
+}
+
+.enlace-destacado {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.rutinas-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.rutina-tarjeta {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+
+    padding: 24px 20px;
+
+    border: 1px solid var(--borde);
+    border-top: 3px solid var(--naranja);
+    border-radius: var(--radio);
+
+    background: var(--superficie);
+}
+
+.rutina-etiquetas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    margin-bottom: 20px;
+}
+
+.etiqueta-disciplina,
+.etiqueta-nivel {
+    padding: 4px 9px;
+    border-radius: 6px;
+
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+.etiqueta-disciplina {
+    background: var(--naranja);
+    color: #15100b;
+}
+
+.etiqueta-nivel {
+    border: 1px solid #474747;
+    background: #292929;
+    color: #eeeeee;
+}
+
+.rutina-titulo {
+    margin: 0 0 12px;
+    font-size: 21px;
+    line-height: 1.3;
+}
+
+.rutina-titulo a {
+    color: var(--texto);
+}
+
+.rutina-titulo a:hover {
+    color: var(--naranja);
+}
+
+.rutina-descripcion {
+    margin: 0 0 22px;
+    color: var(--texto-suave);
+    font-size: 14px;
+}
+
+.rutina-datos {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+
+    margin: 0;
+    padding-block: 18px;
+
+    border-top: 1px solid var(--borde);
+    border-bottom: 1px solid var(--borde);
+}
+
+.rutina-datos dt {
+    color: var(--texto-suave);
+    font-size: 12px;
+}
+
+.rutina-datos dd {
+    margin: 3px 0 0;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.dato-entrenador {
+    grid-column: 1 / -1;
+}
+
+.rutina-equipamiento {
+    padding-block: 18px 24px;
+}
+
+.rutina-equipamiento p {
+    margin: 0 0 10px;
+    color: var(--texto-suave);
+    font-size: 12px;
+}
+
+.equipamiento-lista {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.equipamiento-lista li {
+    padding: 4px 8px;
+    border-radius: 5px;
+
+    background: #2b2b2b;
+    color: #dddddd;
+    font-size: 12px;
+}
+
+.rutina-boton {
+    justify-content: space-between;
+    width: 100%;
+    margin-top: auto;
+
+    border-color: #595959;
+    color: var(--naranja);
+}
+
+.rutinas-vacio {
+    grid-column: 1 / -1;
+    padding: 40px 24px;
+
+    border: 1px dashed var(--borde);
+    border-radius: var(--radio);
+
+    background: var(--superficie);
+    text-align: center;
+}
+
+.rutinas-vacio h3 {
+    margin-top: 0;
+}
+
+.rutinas-vacio p {
+    margin-bottom: 0;
+    color: var(--texto-suave);
+}
+
+/* ======================================
+10. INICIO: TABLETS Y CELULARES
+   ====================================== */
+
+@media (max-width: 1000px) {
+    .rutinas-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .inicio-banner {
+        padding-inline: 32px;
+    }
+}
+
+@media (max-width: 600px) {
+    .inicio-banner {
+        min-height: 440px;
+        padding: 36px 24px 64px;
+
+        background-image:
+            linear-gradient(
+                90deg,
+                rgba(0, 0, 0, 0.88),
+                rgba(0, 0, 0, 0.65)
+            ),
+            url("../img/portada-gimnasio.png");
+
+        background-position: 65% center;
+    }
+
+    .banner-descripcion {
+        font-size: 15px;
+    }
+
+    .banner-etiqueta,
+    .seccion-etiqueta {
+        font-size: 10px;
+        letter-spacing: 1.5px;
+    }
+
+    .inicio-contadores {
+        grid-template-columns: 1fr;
+        gap: 20px;
+
+        margin-inline: 16px;
+        padding: 24px;
+    }
+
+    .contador {
+        padding: 0;
+    }
+
+    .contador + .contador {
+        padding-top: 20px;
+        border-top: 1px solid var(--borde);
+        border-left: none;
+    }
+
+    .contador-numero {
+        font-size: 32px;
+    }
+
+    .inicio-rutinas {
+        margin-top: 40px;
+    }
+
+    .rutinas-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ======================================
+   11. LISTADO: TÍTULO Y FILTROS
+   ====================================== */
+
+.titulo-listado {
+    margin: 0 0 28px;
+    font-size: clamp(28px, 4vw, 38px);
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.titulo-listado::before {
+    content: "";
+    display: inline-block;
+
+    width: 6px;
+    height: 28px;
+    margin-right: 12px;
+
+    border-radius: 4px;
+    background: var(--naranja);
+}
+
+.filtros-rutinas {
+    display: grid;
+    grid-template-columns:
+        minmax(0, 2fr)
+        minmax(0, 1fr)
+        auto
+        auto;
+    align-items: end;
+    gap: 16px;
+
+    padding: 24px;
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+
+    background: var(--superficie);
+}
+
+.filtros-rutinas > div {
+    min-width: 0;
+}
+
+.filtros-rutinas label {
+    display: block;
+    margin-bottom: 8px;
+
+    color: var(--texto-suave);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.filtros-rutinas input,
+.filtros-rutinas select {
+    width: 100%;
+    min-height: 46px;
+    padding: 10px 12px;
+
+    border: 1px solid #555555;
+    border-radius: 8px;
+
+    background: #111111;
+    color: var(--texto);
+}
+
+.filtros-rutinas input::placeholder {
+    color: #999999;
+}
+
+.filtros-rutinas input:focus,
+.filtros-rutinas select:focus {
+    border-color: var(--naranja);
+}
+
+.filtros-rutinas .boton {
+    min-height: 46px;
+}
+
+.cantidad-resultados {
+    margin: 28px 0 20px;
+    color: var(--texto-suave);
+    font-size: 14px;
+}
+
+/* ======================================
+   12. LISTADO: TARJETAS SIN IMÁGENES
+   ====================================== */
+
+.listado-rutinas {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.listado-tarjeta {
+    min-width: 0;
+    padding: 24px;
+
+    border: 1px solid var(--borde);
+    border-top: 3px solid var(--naranja);
+    border-radius: var(--radio);
+
+    background: var(--superficie);
+}
+
+.listado-tarjeta h3 {
+    margin: 0 0 16px;
+    font-size: 23px;
+}
+
+.listado-tarjeta h3 a {
+    color: var(--texto);
+}
+
+.listado-tarjeta h3 a:hover {
+    color: var(--naranja);
+}
+
+.listado-tarjeta p {
+    margin: 10px 0;
+    color: var(--texto-suave);
+    font-size: 14px;
+}
+
+.listado-tarjeta strong {
+    color: var(--texto);
+}
+
+.listado-tarjeta ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    margin: 12px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.listado-tarjeta li {
+    padding: 5px 10px;
+    border: 1px solid #444444;
+    border-radius: 6px;
+
+    background: #292929;
+    color: #eeeeee;
+    font-size: 12px;
+}
+
+/* Mensaje que aparece cuando no hay resultados */
+.listado-rutinas > p {
+    grid-column: 1 / -1;
+    margin: 0;
+    padding: 36px 24px;
+
+    border: 1px dashed var(--borde);
+    border-radius: var(--radio);
+
+    color: var(--texto-suave);
+    text-align: center;
+}
+
+/* ======================================
+   13. LISTADO: PAGINACIÓN
+   ====================================== */
+
+.paginacion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+
+    margin-top: 36px;
+}
+
+.paginacion a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 44px;
+    padding: 10px 18px;
+
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+
+    background: var(--superficie);
+    color: var(--naranja);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.paginacion a:hover {
+    border-color: var(--naranja);
+    background: #292929;
+    text-decoration: none;
+}
+
+.paginacion span {
+    color: var(--texto-suave);
+    font-size: 14px;
+}
+
+/* ======================================
+14. LISTADO: TABLETS Y CELULARES
+   ====================================== */
+
+@media (max-width: 1000px) {
+    .filtros-rutinas {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .filtros-rutinas {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+
+    .listado-rutinas {
+        grid-template-columns: 1fr;
+    }
+
+    .listado-tarjeta {
+        padding: 20px;
+    }
+}
+
+/* ======================================
+15. DETALLE DE RUTINA
+   ====================================== */
+
+.detalle-rutina {
+    padding: 36px;
+
+    border: 1px solid var(--borde);
+    border-top: 4px solid var(--naranja);
+    border-radius: var(--radio);
+
+    background: var(--superficie);
+}
+
+.detalle-rutina h2 {
+    margin: 0 0 20px;
+
+    color: var(--texto);
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 800;
+    letter-spacing: -0.8px;
+}
+
+.detalle-rutina h3 {
+    margin: 30px 0 16px;
+    padding-top: 24px;
+
+    border-top: 1px solid var(--borde);
+
+    color: var(--naranja);
+    font-size: 19px;
+}
+
+.detalle-rutina p {
+    margin: 12px 0;
+    color: var(--texto-suave);
+    line-height: 1.8;
+}
+
+.detalle-rutina strong {
+    color: var(--texto);
+}
+
+.detalle-rutina .detalle-autor,
+.detalle-rutina .detalle-fecha {
+    font-size: 14px;
+}
+
+.detalle-equipamientos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.detalle-equipamientos li {
+    padding: 8px 14px;
+
+    border: 1px solid #484848;
+    border-radius: 8px;
+
+    background: #292929;
+    color: var(--texto);
+    font-size: 14px;
+}
+
+.detalle-volver {
+    margin: 24px 0 0;
+}
+
+@media (max-width: 600px) {
+    .detalle-rutina {
+        padding: 24px 20px;
+    }
+
+    .detalle-volver .boton {
+        width: 100%;
+    }
+}
+
+/* ======================================
+   16. FORMULARIOS DE ACCESO
+   ====================================== */
+
+.acceso-tarjeta {
+    width: 100%;
+    max-width: 480px;
+    margin: 24px auto;
+    padding: 36px;
+
+    border: 1px solid var(--borde);
+    border-top: 4px solid var(--naranja);
+    border-radius: var(--radio);
+
+    background: var(--superficie);
+}
+
+.acceso-tarjeta h2 {
+    margin: 0 0 12px;
+
+    color: var(--texto);
+    font-size: 30px;
+    text-align: center;
+}
+
+.acceso-descripcion {
+    margin: 0 0 28px;
+
+    color: var(--texto-suave);
+    font-size: 14px;
+    text-align: center;
+}
+
+.acceso-formulario p {
+    margin: 0 0 20px;
+}
+
+.acceso-formulario label {
+    display: block;
+    margin-bottom: 8px;
+
+    color: var(--texto);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.acceso-formulario input:not([type="hidden"]) {
+    width: 100%;
+    min-height: 46px;
+    padding: 10px 12px;
+
+    border: 1px solid #555555;
+    border-radius: 8px;
+
+    background: #111111;
+    color: var(--texto);
+}
+
+.acceso-formulario input:focus {
+    border-color: var(--naranja);
+}
+
+.acceso-formulario .boton {
+    width: 100%;
+    margin-top: 8px;
+}
+
+/* Errores que muestra Django al validar el formulario */
+.acceso-formulario .errorlist {
+    margin: 0 0 16px;
+    padding: 12px 16px 12px 30px;
+
+    border-left: 3px solid #ff8585;
+    border-radius: 6px;
+
+    background: #301c1c;
+    color: #ffb3b3;
+    font-size: 13px;
+}
+
+/* Textos de ayuda de los campos */
+.acceso-formulario .helptext {
+    display: block;
+    margin-top: 8px;
+
+    color: var(--texto-suave);
+    font-size: 12px;
+}
+
+.acceso-enlace {
+    margin: 28px 0 0;
+    padding-top: 20px;
+
+    border-top: 1px solid var(--borde);
+
+    color: var(--texto-suave);
+    font-size: 14px;
+    text-align: center;
+}
+
+.acceso-enlace a {
+    font-weight: 700;
+}
+
+@media (max-width: 600px) {
+    .acceso-tarjeta {
+        margin: 8px auto;
+        padding: 28px 20px;
+    }
+}
+
+/* ======================================
+   17. MI CUENTA
+   ====================================== */
+
+.cuenta-tarjeta {
+    width: 100%;
+    max-width: 680px;
+    margin: 24px auto;
+    padding: 36px;
+
+    border: 1px solid var(--borde);
+    border-top: 4px solid var(--naranja);
+    border-radius: var(--radio);
+
+    background: var(--superficie);
+}
+
+.cuenta-tarjeta h2 {
+    margin: 0 0 28px;
+
+    color: var(--texto);
+    font-size: 30px;
+}
+
+.cuenta-tarjeta > p {
+    margin: 0;
+    padding: 16px 0;
+
+    border-bottom: 1px solid var(--borde);
+
+    color: var(--texto-suave);
+}
+
+.cuenta-tarjeta strong {
+    display: block;
+    margin-bottom: 4px;
+
+    color: var(--texto);
+    font-size: 14px;
+}
+
+.cuenta-acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    margin-top: 28px;
+}
+
+@media (max-width: 600px) {
+    .cuenta-tarjeta {
+        margin: 8px auto;
+        padding: 28px 20px;
+    }
+
+    .cuenta-acciones {
+        flex-direction: column;
+    }
+
+    .cuenta-acciones .boton {
+        width: 100%;
+    }
+}

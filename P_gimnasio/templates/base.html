@@ -1,0 +1,103 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block titulo %}Gimnasio y rutinas{% endblock %}</title>
+
+    <!-- Estilos compartidos por todas las páginas -->
+    <link rel="stylesheet" href="{% static 'P_gimnasio/css/estilos.css' %}">
+</head>
+
+<body>
+    <!-- Encabezado y navegación -->
+    <header class="encabezado">
+        <nav class="navegacion contenedor" aria-label="Navegación principal">
+
+            <a class="marca" href="{% url 'inicio' %}">
+                <span class="marca-simbolo" aria-hidden="true">GYM<span> /</span></span>
+                <span>Gimnasio y rutinas</span>
+            </a>
+
+            <div class="menu">
+                <a href="{% url 'inicio' %}"
+                    class="menu-enlace {% if request.resolver_match.url_name == 'inicio' %}activo{% endif %}"
+                    {% if request.resolver_match.url_name == 'inicio' %}aria-current="page"{% endif %}>
+                    Inicio
+                </a>
+
+                <a href="{% url 'lista_rutinas' %}"
+                    class="menu-enlace {% if request.resolver_match.url_name == 'lista_rutinas' %}activo{% endif %}"
+                    {% if request.resolver_match.url_name == 'lista_rutinas' %}aria-current="page"{% endif %}>
+                    Rutinas
+                </a>
+            </div>
+
+            <div class="acciones-usuario">
+                {% if user.is_authenticated %}
+
+                    <span class="saludo">
+                        Hola, <strong>{{ user.username }}</strong>
+                    </span>
+
+                    <a href="{% url 'cuenta' %}" class="boton boton-secundario">
+                        Mi cuenta
+                    </a>
+
+                    <form method="post"
+                        action="{% url 'logout' %}"
+                        class="formulario-salida">
+                        {% csrf_token %}
+
+                        <button type="submit" class="boton boton-principal">
+                            Cerrar sesión
+                        </button>
+                    </form>
+
+                {% else %}
+
+                    <a href="{% url 'login' %}" class="boton boton-secundario">
+                        Iniciar sesión
+                    </a>
+
+                    <a href="{% url 'registro' %}" class="boton boton-principal">
+                        Registrarse
+                    </a>
+
+                {% endif %}
+            
+            </div>
+
+        </nav>
+    </header>
+
+    <!-- Avisos de Django -->
+    {% if messages %}
+        <div class="contenedor zona-mensajes">
+            <ul class="mensajes" aria-live="polite">
+                {% for mensaje in messages %}
+                    <li class="mensaje {{ mensaje.tags }}">
+                        {{ mensaje }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <!-- Cada plantilla coloca aquí su contenido -->
+    <main id="contenido-principal" class="contenido-principal">
+        {% block contenido %}
+        {% endblock %}
+    </main>
+
+    <footer class="pie-pagina">
+        <div class="contenedor pie-contenido">
+            <p class="pie-marca">Gimnasio y rutinas<span> /</span></p>
+            <p>Entrena con propósito. Avanza a tu ritmo.</p>
+        </div>
+    </footer>
+</body>
+</html>

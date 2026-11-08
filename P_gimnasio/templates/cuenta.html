@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    Mi cuenta | Gimnasio y rutinas
+{% endblock %}
+
+{% block contenido %}
+
+<div class="cuenta-tarjeta">
+    <h2>Mi cuenta</h2>
+
+    <p>
+        <strong>Nombre de usuario:</strong>
+        {{ user.username }}
+    </p>
+
+    <p>
+        <strong>Nombre:</strong>
+        {{ user.first_name|default:"Sin indicar" }}
+    </p>
+
+    <p>
+        <strong>Apellidos:</strong>
+        {{ user.last_name|default:"Sin indicar" }}
+    </p>
+
+    <p>
+        <strong>Correo electrónico:</strong>
+        {{ user.email }}
+    </p>
+
+    <p>
+        <strong>Rol:</strong>
+        {{ user.get_rol_display }}
+    </p>
+
+    <div class="cuenta-acciones">
+        <a href="{% url 'editar_perfil' %}" class="boton boton-principal">
+            Editar mis datos
+        </a>
+
+        <a href="{% url 'cambiar_password' %}" class="boton boton-secundario">
+            Cambiar mi contraseña
+        </a>
+    </div>
+</div>
+
+{% endblock %}

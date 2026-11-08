@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Inicio | Gimnasio y rutinas{% endblock %}
+
+{% block contenido %}
+
+<!-- Banner: único lugar del inicio con fotografía -->
+<section class="inicio-banner" aria-labelledby="titulo-inicio">
+    <div class="banner-contenido">
+        <p class="banner-etiqueta">ENTRENA CON PROPÓSITO</p>
+
+        <h1 id="titulo-inicio">
+            Tu próxima meta<br>
+            empieza aquí
+        </h1>
+
+        <p class="banner-descripcion">
+            Descubre las rutinas de nuestros entrenadores,
+            explora distintas disciplinas y encuentra
+            tu próximo desafío.
+        </p>
+
+        <a href="{% url 'lista_rutinas' %}" class="boton boton-principal banner-boton">
+            Explorar rutinas
+            <span aria-hidden="true">→</span>
+        </a>
+    </div>
+</section>
+
+<!-- Tres contadores con datos reales -->
+<section class="inicio-contadores" aria-label="Nuestro gimnasio en números">
+
+    <div class="contador">
+        <strong class="contador-numero">{{ total_rutinas }}</strong>
+        <span class="contador-texto">Rutinas publicadas</span>
+    </div>
+
+    <div class="contador">
+        <strong class="contador-numero">{{ total_disciplinas }}</strong>
+        <span class="contador-texto">Disciplinas</span>
+    </div>
+
+    <div class="contador">
+        <strong class="contador-numero">
+            {{ total_inscripciones_confirmadas }}
+        </strong>
+        <span class="contador-texto">Inscripciones confirmadas</span>
+    </div>
+
+</section>
+
+<!-- Rutinas recientes: tarjetas sin fotografías -->
+<section class="inicio-rutinas" aria-labelledby="titulo-recientes">
+
+    <div class="seccion-encabezado">
+        <div>
+            <p class="seccion-etiqueta">ENCUENTRA TU PRÓXIMO DESAFÍO</p>
+            <h2 id="titulo-recientes">Últimas rutinas publicadas</h2>
+        </div>
+
+        <a href="{% url 'lista_rutinas' %}" class="enlace-destacado">
+            Ver todas las rutinas
+            <span aria-hidden="true">→</span>
+        </a>
+    </div>
+
+    <div class="rutinas-grid">
+        {% for rutina in rutinas_recientes %}
+
+            <article class="rutina-tarjeta">
+
+                <div class="rutina-etiquetas">
+                    <span class="etiqueta-disciplina">
+                        {% if rutina.disciplina %}
+                            {{ rutina.disciplina.nombre }}
+                        {% else %}
+                            Sin disciplina asignada
+                        {% endif %}
+                    </span>
+
+                    <span class="etiqueta-nivel">
+                        {{ rutina.get_nivel_display }}
+                    </span>
+                </div>
+
+                <h3 class="rutina-titulo">
+                    <a href="{% url 'detalle_rutina' pk=rutina.pk %}">
+                        {{ rutina.titulo }}
+                    </a>
+                </h3>
+
+                <p class="rutina-descripcion">
+                    {{ rutina.descripcion|truncatewords:25 }}
+                </p>
+
+                <dl class="rutina-datos">
+                    <div>
+                        <dt>Duración</dt>
+                        <dd>{{ rutina.duracion }} min</dd>
+                    </div>
+
+                    <div>
+                        <dt>Cupos</dt>
+                        <dd>{{ rutina.cupos }}</dd>
+                    </div>
+
+                    <div class="dato-entrenador">
+                        <dt>Entrenador</dt>
+                        <dd>{{ rutina.entrenador.username }}</dd>
+                    </div>
+                </dl>
+
+                <div class="rutina-equipamiento">
+                    <p>Equipamiento</p>
+
+                    <ul class="equipamiento-lista">
+                        {% for equipo in rutina.equipamientos.all %}
+                            <li>{{ equipo.nombre }}</li>
+                        {% empty %}
+                            <li>Sin equipamiento indicado</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+            </article>
+
+        {% empty %}
+
+            <div class="rutinas-vacio">
+                <h3>Pronto encontrarás nuevos desafíos</h3>
+                <p>Todavía no hay rutinas publicadas.</p>
+            </div>
+
+        {% endfor %}
+    </div>
+
+</section>
+
+{% endblock %}

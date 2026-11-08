@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    {{ rutina.titulo }} | Gimnasio y rutinas
+{% endblock %}
+
+{% block contenido %}
+
+<article class="detalle-rutina">
+    <h2>{{ rutina.titulo }}</h2>
+
+    <p class="detalle-autor">
+        <strong>Entrenador:</strong>
+        {{ rutina.entrenador.username }}
+    </p>
+
+    <p class="detalle-fecha">
+        <strong>Fecha de publicación:</strong>
+        {{ rutina.fecha_creacion|date:"d/m/Y H:i" }}
+    </p>
+
+    <h3>Descripción</h3>
+
+    <p>{{ rutina.descripcion|linebreaksbr }}</p>
+
+    <h3>Información de la rutina</h3>
+
+    <p>
+        <strong>Disciplina:</strong>
+
+        {% if rutina.disciplina %}
+            {{ rutina.disciplina.nombre }}
+        {% else %}
+            Sin disciplina asignada
+        {% endif %}
+    </p>
+
+    <p>
+        <strong>Duración:</strong>
+        {{ rutina.duracion }} minutos
+    </p>
+
+    <p>
+        <strong>Nivel:</strong>
+        {{ rutina.get_nivel_display }}
+    </p>
+
+    <p>
+        <strong>Cupos:</strong>
+        {{ rutina.cupos }}
+    </p>
+
+    <h3>Equipamientos</h3>
+
+    <ul class="detalle-equipamientos">
+        {% for equipo in rutina.equipamientos.all %}
+            <li>{{ equipo.nombre }}</li>
+        {% empty %}
+            <li>Sin equipamiento indicado</li>
+        {% endfor %}
+    </ul>
+</article>
+
+<p class="detalle-volver">
+    <a href="{% url 'lista_rutinas' %}" class="boton boton-secundario">
+        Volver al listado de rutinas
+    </a>
+</p>
+
+{% endblock %}

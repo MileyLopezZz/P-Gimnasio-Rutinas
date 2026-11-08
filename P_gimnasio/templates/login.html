@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    Iniciar sesión | Gimnasio y rutinas
+{% endblock %}
+
+{% block contenido %}
+
+<div class="acceso-tarjeta">
+    <h2>Iniciar sesión</h2>
+
+    <p class="acceso-descripcion">
+        Ingresa con tu nombre de usuario y contraseña.
+    </p>
+
+    <form method="post" action="{% url 'login' %}" class="acceso-formulario">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        {% if next %}
+            <input type="hidden" name="next" value="{{ next }}">
+        {% endif %}
+
+        <button type="submit" class="boton boton-principal">
+            Ingresar
+        </button>
+    </form>
+
+    <p class="acceso-enlace">
+        ¿Todavía no tienes una cuenta?
+        <a href="{% url 'registro' %}">Registrarse</a>
+    </p>
+</div>
+
+{% endblock %}
