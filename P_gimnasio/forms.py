@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Disciplina, Equipamiento, Rutina
+from .models import Disciplina, Equipamiento, Inscripcion, Rutina
 
 
 class RutinaForm(forms.ModelForm):
@@ -87,3 +87,18 @@ class EquipamientoForm(forms.ModelForm):
                 'El nombre debe tener al menos 2 caracteres.'
             )
         return nombre
+
+
+class InscripcionForm(forms.ModelForm):
+    """El socio solo puede escribir un comentario al solicitar una rutina."""
+
+    class Meta:
+        model = Inscripcion
+        fields = ['comentario']
+        labels = {'comentario': 'Comentario para el entrenador (opcional)'}
+        widgets = {
+            'comentario': forms.Textarea(attrs={
+                'rows': 3,
+                'placeholder': 'Cuéntale algo al entrenador, si lo necesitas.',
+            }),
+        }
