@@ -1,18 +1,14 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Confirmar eliminación</title>
-</head>
-<body>
-    <h1>Confirmar eliminación</h1>
+{% extends 'base.html' %}
+{% block titulo %}Confirmar eliminación | Gimnasio y rutinas{% endblock %}
+{% block contenido %}
+<section class="detalle-rutina">
+    <h2>Confirmar eliminación</h2>
     <p>¿Seguro que deseas eliminar la rutina <strong>{{ rutina.titulo }}</strong>?</p>
     <p>Esta acción también eliminará sus inscripciones.</p>
-
-    <form method="post">
+    <form method="post" class="cuenta-acciones">
         {% csrf_token %}
-        <button type="submit">Sí, eliminar</button>
-        <a href="{% url 'mis_registros' %}">Cancelar</a>
+        <button type="submit" class="boton boton-principal">Sí, eliminar</button>
+        <a href="{% url 'mis_registros' %}" class="boton boton-secundario">Cancelar</a>
     </form>
-</body>
-</html>
+</section>
+{% endblock %}

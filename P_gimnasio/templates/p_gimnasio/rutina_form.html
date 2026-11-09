@@ -1,35 +1,27 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ titulo_pagina }}</title>
-</head>
-<body>
-    <h1>{{ titulo_pagina }}</h1>
-
-    {% if messages %}
-        {% for message in messages %}<p>{{ message }}</p>{% endfor %}
-    {% endif %}
-
-    <p>
-        <a href="{% url 'disciplina_crear' %}">Crear disciplina</a> |
-        <a href="{% url 'equipamiento_crear' %}">Crear equipamiento</a>
+{% extends 'base.html' %}
+{% block titulo %}{{ titulo_pagina }} | Gimnasio y rutinas{% endblock %}
+{% block contenido %}
+<section class="cuenta-tarjeta">
+    <h2>{{ titulo_pagina }}</h2>
+    <p class="cuenta-acciones">
+        <a href="{% url 'disciplina_crear' %}" class="boton boton-secundario">Crear disciplina</a>
+        <a href="{% url 'equipamiento_crear' %}" class="boton boton-secundario">Crear equipamiento</a>
     </p>
-
-    <form method="post">
+    <form method="post" class="acceso-formulario">
         {% csrf_token %}
         {{ form.non_field_errors }}
         {% for field in form %}
             <p>
                 {{ field.label_tag }}<br>
                 {{ field }}
-                {% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}
+                {% if field.help_text %}<small class="helptext">{{ field.help_text }}</small>{% endif %}
                 {% for error in field.errors %}<br><strong>{{ error }}</strong>{% endfor %}
             </p>
         {% endfor %}
-        <button type="submit">{{ boton }}</button>
+        <button type="submit" class="boton boton-principal">{{ boton }}</button>
     </form>
-
-    <p><a href="{% url 'mis_registros' %}">Volver a Mis registros</a></p>
-</body>
-</html>
+    <div class="cuenta-acciones">
+        <a href="{% url 'mis_registros' %}" class="boton boton-secundario">Volver a Mis registros</a>
+    </div>
+</section>
+{% endblock %}

@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ titulo_pagina }}</title>
-</head>
-<body>
-    <h1>{{ titulo_pagina }}</h1>
-
-    <form method="post">
+{% extends 'base.html' %}
+{% block titulo %}{{ titulo_pagina }} | Gimnasio y rutinas{% endblock %}
+{% block contenido %}
+<section class="acceso-tarjeta">
+    <h2>{{ titulo_pagina }}</h2>
+    <form method="post" class="acceso-formulario">
         {% csrf_token %}
         {{ form.non_field_errors }}
         {% for field in form %}
@@ -17,9 +13,8 @@
                 {% for error in field.errors %}<br><strong>{{ error }}</strong>{% endfor %}
             </p>
         {% endfor %}
-        <button type="submit">{{ boton }}</button>
+        <button type="submit" class="boton boton-principal">{{ boton }}</button>
     </form>
-
-    <p><a href="{% url volver_url %}">Volver</a></p>
-</body>
-</html>
+    <p class="acceso-enlace"><a href="{% url volver_url %}">Volver</a></p>
+</section>
+{% endblock %}

@@ -1,38 +1,48 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Mis registros</title>
-</head>
-<body>
-    <h1>Mis registros</h1>
-
-    {% if messages %}
-        {% for message in messages %}<p>{{ message }}</p>{% endfor %}
-    {% endif %}
-
-    <p><a href="{% url 'rutina_crear' %}">Crear nueva rutina</a></p>
-    <p><a href="{% url 'solicitudes_recibidas' %}">Ver solicitudes recibidas</a></p>
-
-    {% if rutinas %}
+{% extends 'base.html' %}
+{% block titulo %}Mis registros | Gimnasio y rutinas{% endblock %}
+{% block contenido %}
+<section class="inicio-rutinas" aria-labelledby="titulo-registros">
+    <div class="seccion-encabezado">
+        <div>
+            <p class="seccion-etiqueta">TU ACTIVIDAD</p>
+            <h2 id="titulo-registros">Mis registros</h2>
+        </div>
+    </div>
+    <div class="cuenta-acciones">
+        <a href="{% url 'rutina_crear' %}" class="boton boton-principal">Crear nueva rutina</a>
+        <a href="{% url 'solicitudes_recibidas' %}" class="boton boton-secundario">Ver solicitudes recibidas</a>
+    </div>
+    <div class="rutinas-grid">
         {% for rutina in rutinas %}
-            <article>
-                <h2><a href="{% url 'rutina_detalle' rutina.pk %}">{{ rutina.titulo }}</a></h2>
-                <p>{{ rutina.descripcion }}</p>
-                <p>Duración: {{ rutina.duracion }} minutos | Cupos: {{ rutina.cupos }}</p>
-                <p>Disciplina: {{ rutina.disciplina|default:'Sin disciplina' }}</p>
-                <p>Equipamiento:
-                    {% for equipamiento in rutina.equipamientos.all %}
-                        {{ equipamiento.nombre }}{% if not forloop.last %}, {% endif %}
-                    {% empty %}Sin equipamiento{% endfor %}
-                </p>
-                <a href="{% url 'rutina_editar' rutina.pk %}">Editar</a>
-                <a href="{% url 'rutina_eliminar' rutina.pk %}">Eliminar</a>
+            <article class="rutina-tarjeta">
+                <h3 class="rutina-titulo"><a href="{% url 'rutina_detalle' rutina.pk %}">{{ rutina.titulo }}</a></h3>
+                <p class="rutina-descripcion">{{ rutina.descripcion }}</p>
+                <dl class="rutina-datos">
+                    <div><dt>Duración</dt><dd>{{ rutina.duracion }} minutos</dd></div>
+                    <div><dt>Cupos</dt><dd>{{ rutina.cupos }}</dd></div>
+                    <div><dt>Disciplina</dt><dd>{{ rutina.disciplina|default:'Sin disciplina' }}</dd></div>
+                </dl>
+                <div class="rutina-equipamiento">
+                    <p>Equipamiento</p>
+                    <ul class="equipamiento-lista">
+                        {% for equipamiento in rutina.equipamientos.all %}
+                            <li>{{ equipamiento.nombre }}</li>
+                        {% empty %}
+                            <li>Sin equipamiento</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="cuenta-acciones">
+                    <a href="{% url 'rutina_editar' rutina.pk %}" class="boton boton-secundario">Editar</a>
+                    <a href="{% url 'rutina_eliminar' rutina.pk %}" class="boton boton-principal">Eliminar</a>
+                </div>
             </article>
-            <hr>
+        {% empty %}
+            <div class="rutinas-vacio">
+                <h3>Aún no tienes rutinas registradas</h3>
+                <p>Cuando crees una rutina, aparecerá aquí.</p>
+            </div>
         {% endfor %}
-    {% else %}
-        <p>Aún no tienes rutinas registradas.</p>
-    {% endif %}
-</body>
-</html>
+    </div>
+</section>
+{% endblock %}

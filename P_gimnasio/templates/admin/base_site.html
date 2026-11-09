@@ -1,0 +1,18 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{{ title }} | Administración del gimnasio{% endblock %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'P_gimnasio/css/admin_estilos.css' %}">
+{% endblock %}
+
+{% block branding %}
+    <div id="site-name">
+        <a href="{% url 'admin:index' %}">
+            <span class="admin-marca">GYM <span>/</span></span>
+            Administración del gimnasio
+        </a>
+    </div>
+{% endblock %}
